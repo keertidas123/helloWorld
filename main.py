@@ -5,11 +5,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return render_template('hello.html')
+    return 'Hello World from Keerti Das! I am adding my first code change.'
 
 
 @app.route('/hello')
-def hello():ll
+def hello():
     return render_template('hello.html')
 
 
