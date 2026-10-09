@@ -13,8 +13,14 @@ def hello():
     return render_template('hello.html')
 
 @app.route('/about')
-def hello():
+def about():
     return render_template('about.html')
+
+
+@app.route('/about-css')
+def about_css():
+    return render_template('about-css.html')
+
 
 if __name__ == '__main__':
     app.run(port=5001)
