@@ -1,0 +1,34 @@
+/* Setting the font text and size for all paragraphs */
+p {
+    font-family: Optima, sans-serif;
+    font-size: 20px;
+}
+
+/* Setting the font color and weight for the level 2 headings */
+h2 {
+    color: firebrick;
+    font-weight: bold;
+}
+
+/* All tables are wrapped in solid pink borders */
+table, th, td {
+    border: 2px solid deeppink;
+}
+
+/* Creating a separate class for the third paragraph to be center aligned
+ and typed in blue*/
+#third-paragraph {
+    color: cadetblue;
+    text-align: center;
+}
+
+/* Class made to highlight the level 2 headings */
+.highlight {
+    background-color: #C1E1C1;
+}
+
+/* Class used to set sizes of images */
+img.logo {
+    width: 300px;
+    height: 88px;
+}
