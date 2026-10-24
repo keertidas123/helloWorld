@@ -13,15 +13,18 @@
 
 <body class="bg-light">
 
-    <!-- Shared Navigation -->
+    <!-- Shared Navigation Bar for Contact and Favorite Course Page -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="/">My Flask Website</a>
 
             <div class="navbar-nav">
-                <a class="nav-link" href="/favorite-course">
-                    Favorite Course
-                </a>
+
+         <!------ URL which adds the content to the page for Favorite Course ----->
+        <a class="nav-link"
+            href="{{ url_for('favorite_course', subject='BMGT', course_number='407') }}"
+            Favorite Course
+        </a>
                 <a class="nav-link" href="/contact">
                     Contact
                 </a>
@@ -35,7 +38,7 @@
         {% endblock %}
     </div>
 
-    <!-- Shared Footer -->
+    <!-- Shared Footer for both pages-->
     <footer class="text-center text-muted py-4">
         <p>My Flask Website | Flask Assignment</p>
     </footer>
