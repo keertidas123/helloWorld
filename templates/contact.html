@@ -5,40 +5,33 @@
 
 {% block content %}
 
+<!-- Centers the contact form and adds spacing below the heading -->
 <div class="row justify-content-center">
     <div class="col-md-7">
-
         <h1 class="text-center mb-3">Contact Us</h1>
 
         {% if form_submitted %}
 
         <!-- Thank You Message -->
         <div class="bg-white p-4 rounded shadow-sm">
-
             <h2>Thank you for completing my form!</h2>
             <p>Here is the information you entered:</p>
-
             <p><strong>First Name:</strong>
                 {{ request.form.get('first_name') }}
             </p>
-
             <p><strong>Last Name:</strong>
                 {{ request.form.get('last_name') }}
             </p>
-
             <p><strong>Email Address:</strong>
                 {{ request.form.get('email') }}
             </p>
-
             <p><strong>Message:</strong>
                 {{ request.form.get('message') }}
             </p>
-
             <a href="{{ url_for('contact') }}"
                class="btn btn-primary mt-3">
                 Complete Form Again
             </a>
-
         </div>
 
         {% else %}
@@ -47,7 +40,6 @@
         <p class="text-center text-muted mb-4">
             Have a question? Fill out the form below!
         </p>
-
         <form action="{{ url_for('contact') }}"
               method="POST"
               class="bg-white p-4 rounded shadow-sm">
@@ -104,7 +96,6 @@
                     class="btn btn-primary w-100">
                 Send Message
             </button>
-
         </form>
 
         {% endif %}
