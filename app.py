@@ -48,23 +48,11 @@ def student_create():
         last_name = request.form['last_name']
         major_id = request.form['major_id']
 
-        # NEW: email field
-        email = request.form.get('email', '').strip()
-
-        # NEW: require an email when adding a student
-        if not email or len(email) > 100 or '@' not in email:
-            flash('Please enter a valid email address (maximum 100 characters).', 'error')
-            return redirect(url_for('student_create'))
-
         birth_date = request.form['birth_date']
         is_honors = True if 'is_honors' in request.form else False
 
         student = Student(first_name=first_name, last_name=last_name, major_id=major_id,
                           birth_date=dt.strptime(birth_date, '%Y-%m-%d'), is_honors=is_honors)
-
-        # NEW: save the student's email
-        student.email = email
-
         db.session.add(student)
         db.session.commit()
         flash(f'{first_name} {last_name} was successfully added!', 'success')
@@ -92,14 +80,6 @@ def student_edit(student_id):
         student = Student.query.filter_by(student_id=student_id).first()
 
         if student:
-            # NEW: email field
-            email = request.form.get('email', '').strip()
-
-            # NEW: require an email when updating a student
-            if not email or len(email) > 100 or '@' not in email:
-                flash('Please enter a valid email address (maximum 100 characters).', 'error')
-                return redirect(url_for('student_edit', student_id=student_id))
-
             student.first_name = request.form['first_name']
             student.last_name = request.form['last_name']
             student.major_id = request.form['major_id']
@@ -107,9 +87,6 @@ def student_edit(student_id):
             student.num_credits_completed = request.form['num_credits_completed']
             student.gpa = request.form['gpa']
             student.is_honors = True if 'is_honors' in request.form else False
-
-            # NEW: update the student's email
-            student.email = email
 
             db.session.commit()
             flash(f'{student.first_name} {student.last_name} was successfully updated!', 'success')
@@ -130,11 +107,18 @@ def student_delete(student_id):
         db.session.commit()
         flash(f'{student} was successfully deleted!', 'success')
     else:
-        flash(f'Delete failed! Student could not be found.', 'error')
+        flash('Delete failed! Student could not be found.', 'error')
 
-    return redirect(url_for('student_view_all'))
+    return redirect(url_for('student_delete_page'))
 
+@app.route('/student/delete')
+def student_delete_page():
+    students = Student.query.outerjoin(Major, Student.major_id == Major.major_id) \
+        .add_entity(Major) \
+        .order_by(Student.last_name, Student.first_name) \
+        .all()
 
+    return render_template('student_view_all.html', students=students)
 @app.route('/')
 def home():
     return redirect(url_for('student_view_all'))
