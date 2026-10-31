@@ -149,7 +149,7 @@
     </div>
 
     {# Credits completed and GPA only appear when viewing or updating a student #}
-    {% if action in ['read', 'update'] %}
+    {% if action in ['create', 'read', 'update'] %}
 
         <!-- Number of credits completed -->
         <div class="col-md-4">
@@ -157,14 +157,14 @@
                 <strong>Number of Credits Completed</strong>
             </label>
 
-            {% if action == 'update' %}
+            {% if action in ['create', 'update'] %}
                 <input type="number"
                        min="0"
                        max="200"
                        class="form-control"
                        id="num_credits_completed"
                        name="num_credits_completed"
-                       value="{{ student.num_credits_completed }}"
+                       value="{{ student.num_credits_completed  if student else 0 }}"
                        required>
             {% else %}
                 <br>{{ student.num_credits_completed }}
@@ -177,7 +177,7 @@
                 <strong>GPA</strong>
             </label>
 
-            {% if action == 'update' %}
+            {% if action in ['create', 'update'] %}
                 <input type="number"
                        step="0.01"
                        min="0.00"
@@ -185,7 +185,7 @@
                        class="form-control"
                        id="gpa"
                        name="gpa"
-                       value="{{ student.gpa }}"
+                       value="{{ student.gpa if student else '0.00'}}"
                        required>
             {% else %}
                 <br>{{ student.gpa }}
